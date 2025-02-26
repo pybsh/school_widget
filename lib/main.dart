@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:school_widget/screens/home.dart';
 import 'package:school_widget/screens/setting.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_widget/services/get_school.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SchoolScreen extends StatefulWidget {
   const SchoolScreen({super.key});
@@ -10,7 +11,29 @@ class SchoolScreen extends StatefulWidget {
 
 class _SchoolScreenState extends State<SchoolScreen> {
   var _schoolSearchQuery = '';
+
+  late SharedPreferences _prefs;
+
   final _searchController = SearchController();
+
+  @override
+  void initState() {
+    super.initState();
+    initPrefs();
+  }
+
+  void initPrefs() async {
+    _prefs = await SharedPreferences.getInstance();
+    _schoolSearchQuery = _prefs.getString('schoolName') ?? '';
+    _searchController.text = _schoolSearchQuery;
+  }
+
+  void setSchoolSearchQuery(String value) {
+    setState(() {
+      _schoolSearchQuery = value;
+    });
+    _prefs.setString('schoolName', value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +50,18 @@ class _SchoolScreenState extends State<SchoolScreen> {
               searchController: _searchController,
               builder: (context, controller) {
                 return SearchBar(
-                  trailing: [Icon(Icons.search)],
+                  // trailing: [Icon(Icons.search)],
                   controller: controller,
                   onTap: null,
                   onChanged: null,
                   onSubmitted: (value) {
-                    setState(() {
-                      _schoolSearchQuery = value;
-                    });
+                    setSchoolSearchQuery(value);
                     controller.openView();
                   },
                 );
               },
               viewOnSubmitted: (value) {
-                setState(() {
-                  _schoolSearchQuery = value;
-                });
+                setSchoolSearchQuery(value);
                 _searchController.closeView('');
                 _searchController.openView();
               },
@@ -65,8 +84,15 @@ class _SchoolScreenState extends State<SchoolScreen> {
                               title: Text(suggestions[index].schoolName),
                               subtitle: Text(suggestions[index].address),
                               onTap: () {
+                                setSchoolSearchQuery(
+                                  suggestions[index].schoolName,
+                                );
                                 controller.closeView(
                                   suggestions[index].schoolName,
+                                );
+                                _prefs.setString(
+                                  'schoolCode',
+                                  suggestions[index].schoolCode,
                                 );
                               },
                             ),

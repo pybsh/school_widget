@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:school_widget/screens/school.dart';
+import 'package:school_widget/screens/settings/grade_class.dart';
+import 'package:school_widget/screens/settings/school.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -30,11 +31,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 );
               },
             ),
-            Row(
-              children: [
-                Expanded(child: Column(children: [Text("학년"), TextField()])),
-                Expanded(child: Column(children: [Text("반"), TextField()])),
-              ],
+            ElevatedButton(
+              child: Text("학년/반 설정"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GradeClassScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
