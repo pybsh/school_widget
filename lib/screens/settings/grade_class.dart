@@ -18,6 +18,7 @@ class _GradeClassScreenState extends State<GradeClassScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text('학년/반 설정'),
+
             
           ],
         ),
