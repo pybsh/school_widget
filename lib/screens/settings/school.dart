@@ -38,7 +38,15 @@ class _SchoolScreenState extends State<SchoolScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            setSchoolSearchQuery(_searchController.text);
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -61,7 +69,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
                 );
               },
               viewOnSubmitted: (value) {
-                setSchoolSearchQuery(value);
+                // setSchoolSearchQuery(value);
                 _searchController.closeView('');
                 _searchController.openView();
               },

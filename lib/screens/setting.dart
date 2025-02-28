@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_widget/screens/settings/grade_class.dart';
 import 'package:school_widget/screens/settings/school.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -10,6 +11,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  late SharedPreferences _prefs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
