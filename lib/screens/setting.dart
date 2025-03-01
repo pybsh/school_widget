@@ -13,6 +13,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   late SharedPreferences _prefs;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
