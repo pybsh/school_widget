@@ -13,6 +13,25 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   late SharedPreferences _prefs;
 
+  var _gradeText = '';
+  var _classText = '';
+  var _schoolText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initPrefs();
+  }
+
+  void initPrefs() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _gradeText = _prefs.getString('grade') ?? '지정된 학년이 없습니다.';
+      _classText = _prefs.getString('class') ?? '지정된 반이 없습니다.';
+      _schoolText = _prefs.getString('schoolName') ?? '지정된 학교가 없습니다.';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +64,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 );
               },
             ),
+            Text('학교: $_schoolText'),
+            Text('학년: $_gradeText'),
+            Text('반: $_classText'),
           ],
         ),
       ),
