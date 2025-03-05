@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.school_widget"
+    namespace = "me.pybsh.school_widget"
     compileSdk = 35
     ndkVersion = "26.3.11579264"
 
