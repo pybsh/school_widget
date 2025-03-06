@@ -3,7 +3,7 @@ import 'package:home_widget/home_widget.dart';
 
 class WidgetService {
   /// iOS
-  static const iOSWidgetAppGroupId = 'group.me.pybsh.school-widget';
+  static const iOSWidgetAppGroupId = 'group.me.pybsh';
   static const timetableWidgetiOSName = 'Timetable';
   static const mealWidgetiOSName = 'Meal';
 
@@ -20,17 +20,17 @@ class WidgetService {
   }
 
   /// Save data to Shared Preferences
-  static Future<void> _saveData<T>(String key, T data) async {
+  static Future<void> saveData<T>(String key, T data) async {
     await HomeWidget.saveWidgetData<T>(key, data);
   }
 
   /// Retrieve data from Shared Preferences
-  static Future<T?> _getData<T>(String key) async {
+  static Future<T?> getData<T>(String key) async {
     return await HomeWidget.getWidgetData<T>(key);
   }
 
   /// Request to update widgets on both iOS and Android
-  static Future<void> _updateWidget({
+  static Future<void> updateWidget({
     String? iOSWidgetName,
     String? qualifiedAndroidName,
   }) async {
@@ -40,6 +40,7 @@ class WidgetService {
       qualifiedAndroidName: qualifiedAndroidName,
     );
     debugPrint(
-        '[WidgetService.updateWidget] iOSWidgetName: $iOSWidgetName, qualifiedAndroidName: $qualifiedAndroidName, result: $result');
+      '[WidgetService.updateWidget] iOSWidgetName: $iOSWidgetName, qualifiedAndroidName: $qualifiedAndroidName, result: $result',
+    );
   }
 }

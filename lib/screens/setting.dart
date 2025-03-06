@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:school_widget/models/user_school_info.dart';
 import 'package:school_widget/screens/settings/grade_class.dart';
 import 'package:school_widget/screens/settings/school.dart';
+import 'package:school_widget/services/fetch_timetable.dart';
+import 'package:school_widget/util/widget_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -15,8 +20,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   var _gradeText = '';
   var _classText = '';
-  var _schoolText = '';
-  var _schoolCode = '';
+  UserSchoolInfo _school = UserSchoolInfo(
+    SCHUL_NM: "",
+    SD_SCHUL_CODE: "",
+    ATPT_OFCDC_SC_CODE: "",
+    LCTN_SC_NM: "",
+    ORG_RDNMA: "",
+    SCHUL_KND_SC_NM: "",
+  );
 
   @override
   void initState() {
@@ -29,8 +40,12 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {
       _gradeText = _prefs.getString('grade') ?? '지정된 학년이 없습니다.';
       _classText = _prefs.getString('class') ?? '지정된 반이 없습니다.';
-      _schoolText = _prefs.getString('schoolName') ?? '지정된 학교가 없습니다.';
-      _schoolCode = _prefs.getString('schoolCode') ?? '';
+
+      String? savedData = _prefs.getString('user_school_info');
+
+      if (savedData != null) {
+        _school = UserSchoolInfo.fromJson(jsonDecode(savedData));
+      }
     });
   }
 
@@ -52,7 +67,11 @@ class _SettingScreenState extends State<SettingScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SchoolScreen()),
-                );
+                ).then((_) {
+                  setState(() {
+                    initPrefs();
+                  });
+                });
               },
             ),
             ElevatedButton(
@@ -63,13 +82,38 @@ class _SettingScreenState extends State<SettingScreen> {
                   MaterialPageRoute(
                     builder: (context) => const GradeClassScreen(),
                   ),
-                );
+                ).then((_) {
+                  setState(() {
+                    initPrefs();
+                  });
+                });
               },
             ),
-            Text('학교: $_schoolText'),
+            Text('학교: ${_school.SCHUL_NM}'),
             Text('학년: $_gradeText'),
             Text('반: $_classText'),
-            Text('학교 코드: $_schoolCode'),
+            Text('학교 코드: ${_school.SD_SCHUL_CODE}'),
+            ElevatedButton(
+              onPressed: () async {
+                var timetable = await fetchTimetable(
+                  _school.ATPT_OFCDC_SC_CODE,
+                  _school.SD_SCHUL_CODE,
+                  _gradeText,
+                  _classText,
+                  schoolTypeMap[_school.SCHUL_KND_SC_NM] ?? 'his',
+                );
+
+                await WidgetService.saveData("timetable", timetable);
+                await WidgetService.updateWidget(
+                  iOSWidgetName: WidgetService.timetableWidgetiOSName,
+                  qualifiedAndroidName:
+                      WidgetService.timetableWidgetAndroidName,
+                );
+                // var a = await WidgetService.getData("timetable");
+                // print(a);
+              },
+              child: Text("타임테이블 테스트"),
+            ),
           ],
         ),
       ),

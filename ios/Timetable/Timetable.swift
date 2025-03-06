@@ -8,29 +8,42 @@
 import WidgetKit
 import SwiftUI
 
+private let prefsKeyTimetable = "timetable"
+private let widgetGroupId = "group.me.pybsh"
+
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    
+    func placeholder(in context: Context) -> TimetableEntry {
+        let prefs = UserDefaults(suiteName: widgetGroupId)
+        let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        return TimetableEntry(date: Date(), timetable: timetable)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (TimetableEntry) -> ()) {
+        let prefs = UserDefaults(suiteName: widgetGroupId)
+        let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        
+        let entry = TimetableEntry(date: Date(), timetable: timetable)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        getSnapshot(in: context) { (entry) in
+                    let timeline = Timeline(entries: [entry], policy: .never)
+                    completion(timeline)
+                }
+//        var entries: [TimetableEntry] = []
+//
+//        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+//        let currentDate = Date()
+//        for hourOffset in 0 ..< 5 {
+//            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+//            let entry = TimetableEntry(date: Date(), timetable: "1.asd\n2.dsa")
+//            entries.append(entry)
+//        }
+//
+//        let timeline = Timeline(entries: entries, policy: .atEnd)
+//        completion(timeline)
     }
 
 //    func relevances() async -> WidgetRelevances<Void> {
@@ -38,9 +51,9 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct TimetableEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    let timetable: String
 }
 
 struct TimetableEntryView : View {
@@ -48,11 +61,8 @@ struct TimetableEntryView : View {
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+            Text("Timetable:")
+            Text(entry.timetable.description)
         }
     }
 }
@@ -79,6 +89,6 @@ struct Timetable: Widget {
 #Preview(as: .systemSmall) {
     Timetable()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    TimetableEntry(date: .now, timetable: "-")
+    TimetableEntry(date: .now, timetable: "-")
 }

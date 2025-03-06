@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:school_widget/models/school.dart';
+import 'package:school_widget/models/user_school_info.dart';
 
-Future<List> fetchTimetable(String query) async { //todo edit this
+Future<List> fetchSchool(String query) async {
   final uri = Uri.https("open.neis.go.kr", "/hub/schoolInfo", {
     'SCHUL_NM': query,
     'type': 'json',
@@ -16,7 +16,7 @@ Future<List> fetchTimetable(String query) async { //todo edit this
     if (json['schoolInfo'] != null && json['schoolInfo'][1]['row'] != null) {
       json = json['schoolInfo'][1]['row'];
       json.forEach((element) {
-        schoolList.add(School.fromJson(element));
+        schoolList.add(UserSchoolInfo.fromJson(element));
       });
     }
   } catch (e) {

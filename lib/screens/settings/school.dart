@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:school_widget/services/get_school.dart';
+import 'package:school_widget/models/user_school_info.dart';
+import 'package:school_widget/services/fetch_school.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SchoolScreen extends StatefulWidget {
@@ -24,7 +27,20 @@ class _SchoolScreenState extends State<SchoolScreen> {
 
   void initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
-    _schoolSearchQuery = _prefs.getString('schoolName') ?? '';
+    String? savedData = _prefs.getString('user_school_info');
+
+    if (savedData == null || savedData.isEmpty) {
+      _schoolSearchQuery = '';
+    } else {
+      try {
+        var userSchoolInfo = UserSchoolInfo.fromJson(jsonDecode(savedData));
+        _schoolSearchQuery = userSchoolInfo.SCHUL_NM;
+      } catch (e) {
+        _schoolSearchQuery = '';
+        debugPrint('JSON parse error: $e');
+      }
+    }
+
     _searchController.text = _schoolSearchQuery;
   }
 
@@ -32,7 +48,6 @@ class _SchoolScreenState extends State<SchoolScreen> {
     setState(() {
       _schoolSearchQuery = value;
     });
-    _prefs.setString('schoolName', value);
   }
 
   @override
@@ -89,18 +104,18 @@ class _SchoolScreenState extends State<SchoolScreen> {
                         itemCount: suggestions.length,
                         itemBuilder:
                             (context, index) => ListTile(
-                              title: Text(suggestions[index].schoolName),
-                              subtitle: Text(suggestions[index].address),
+                              title: Text(suggestions[index].SCHUL_NM),
+                              subtitle: Text(suggestions[index].ORG_RDNMA),
                               onTap: () {
                                 setSchoolSearchQuery(
-                                  suggestions[index].schoolName,
+                                  suggestions[index].SCHUL_NM,
                                 );
                                 controller.closeView(
-                                  suggestions[index].schoolName,
+                                  suggestions[index].SCHUL_NM,
                                 );
                                 _prefs.setString(
-                                  'schoolCode',
-                                  suggestions[index].schoolCode,
+                                  'user_school_info',
+                                  jsonEncode(suggestions[index].toJson()),
                                 );
                               },
                             ),

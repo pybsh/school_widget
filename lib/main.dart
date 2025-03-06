@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:school_widget/screens/home.dart';
 import 'package:school_widget/screens/setting.dart';
+import 'package:school_widget/util/widget_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await WidgetService.initialize();
   runApp(const MyApp());
 }
 
