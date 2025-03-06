@@ -1,29 +1,28 @@
 //
-//  Timetable.swift
-//  Timetable
+//  Meal.swift
+//  Meal
 //
-//  Created by JoonHyun Cho on 2/24/25.
+//  Created by JoonHyun Cho on 3/6/25.
 //
 
 import WidgetKit
 import SwiftUI
 
-private let prefsKeyTimetable = "timetable"
+private let prefsKeyTimetable = "meal"
 private let widgetGroupId = "group.me.pybsh"
 
 struct Provider: TimelineProvider {
-    
-    func placeholder(in context: Context) -> TimetableEntry {
+    func placeholder(in context: Context) -> MealEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
-        let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-        return TimetableEntry(date: Date(), timetable: timetable)
+        let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        return MealEntry(date: Date(), meal: meal)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (TimetableEntry) -> ()) {
+    func getSnapshot(in context: Context, completion: @escaping (MealEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
-        let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
         
-        let entry = TimetableEntry(date: Date(), timetable: timetable)
+        let entry = MealEntry(date: Date(), meal: meal)
         completion(entry)
     }
 
@@ -32,13 +31,13 @@ struct Provider: TimelineProvider {
                     let timeline = Timeline(entries: [entry], policy: .never)
                     completion(timeline)
                 }
-//        var entries: [TimetableEntry] = []
+//        var entries: [MealEntry] = []
 //
 //        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
 //        let currentDate = Date()
 //        for hourOffset in 0 ..< 5 {
 //            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-//            let entry = TimetableEntry(date: Date(), timetable: "1.asd\n2.dsa")
+//            let entry = MealEntry(date: entryDate, meal: "😀")
 //            entries.append(entry)
 //        }
 //
@@ -51,43 +50,43 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct TimetableEntry: TimelineEntry {
+struct MealEntry: TimelineEntry {
     let date: Date
-    let timetable: String
+    let meal: String
 }
 
-struct TimetableEntryView : View {
+struct MealEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
         VStack {
-            Text(entry.timetable.description)
+            Text(entry.meal.description)
         }
     }
 }
 
-struct Timetable: Widget {
-    let kind: String = "Timetable"
+struct Meal: Widget {
+    let kind: String = "Meal"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                TimetableEntryView(entry: entry)
+                MealEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                TimetableEntryView(entry: entry)
+                MealEntryView(entry: entry)
                     .padding()
                     .background()
             }
         }
-        .configurationDisplayName("Timetable")
+        .configurationDisplayName("Meal")
         .description("This is an example widget.")
     }
 }
 
 #Preview(as: .systemSmall) {
-    Timetable()
+    Meal()
 } timeline: {
-    TimetableEntry(date: .now, timetable: "-")
-    TimetableEntry(date: .now, timetable: "-")
+    MealEntry(date: .now, meal: "😀")
+    MealEntry(date: .now, meal: "🤩")
 }

@@ -16,9 +16,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "71ECC9CB2D6CA5A9005791FD"
-               BuildableName = "TimetableExtension.appex"
-               BlueprintName = "TimetableExtension"
+               BlueprintIdentifier = "71A5B5F22D79A27200B75EEC"
+               BuildableName = "MealExtension.appex"
+               BlueprintName = "MealExtension"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,9 +62,9 @@
          BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "71ECC9CB2D6CA5A9005791FD"
-            BuildableName = "TimetableExtension.appex"
-            BlueprintName = "TimetableExtension"
+            BlueprintIdentifier = "71A5B5F22D79A27200B75EEC"
+            BuildableName = "MealExtension.appex"
+            BlueprintName = "MealExtension"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
@@ -86,12 +86,37 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "Timetable"
+            value = "Meal"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "Timetable"
+            value = "Meal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "Meal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "Meal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "Meal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "Meal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "Meal"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

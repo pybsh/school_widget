@@ -13,7 +13,7 @@ Future<String> fetchTimetable(
   final uri = Uri.https("open.neis.go.kr", "/hub/${type}Timetable", {
     'ATPT_OFCDC_SC_CODE': atptCode,
     'SD_SCHUL_CODE': schoolCode,
-    'ALL_TI_YMD': getToday(), // '20240306',
+    'ALL_TI_YMD': getToday(), // '20240306',  
     'GRADE': grade,
     'CLASS_NM': classNm,
     'type': 'json',
@@ -30,7 +30,6 @@ Future<String> fetchTimetable(
       json.forEach((element) {
         timetable += "${element['PERIO']}. ${element['ITRT_CNTNT']}\n";
       });
-      // print(json);
     }
   } catch (e) {
     print('Error fetching timetable: $e');

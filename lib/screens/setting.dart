@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:school_widget/models/user_school_info.dart';
 import 'package:school_widget/screens/settings/grade_class.dart';
 import 'package:school_widget/screens/settings/school.dart';
+import 'package:school_widget/services/fetch_meal.dart';
 import 'package:school_widget/services/fetch_timetable.dart';
 import 'package:school_widget/util/widget_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,6 +114,23 @@ class _SettingScreenState extends State<SettingScreen> {
                 // print(a);
               },
               child: Text("타임테이블 테스트"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                var meal = await fetchMeal(
+                  _school.ATPT_OFCDC_SC_CODE,
+                  _school.SD_SCHUL_CODE,
+                );
+
+                await WidgetService.saveData("meal", meal);
+                await WidgetService.updateWidget(
+                  iOSWidgetName: WidgetService.mealWidgetiOSName,
+                  qualifiedAndroidName: WidgetService.mealWidgetAndroidName,
+                );
+                // var a = await WidgetService.getData("timetable");
+                // print(a);
+              },
+              child: Text("급식 테스트"),
             ),
           ],
         ),
