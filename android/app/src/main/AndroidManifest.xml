@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--
      Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -20,18 +20,24 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="school_widget">
-        <receiver
-            android:name=".TimelineWidget"
-            android:exported="false">
+        <receiver android:name=".TimetableWidgetReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/timeline_widget_info" />
+                android:resource="@xml/timetable_widget_info" />
         </receiver>
-
+        <receiver android:name=".MealWidgetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/meal_widget_info" />
+        </receiver>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -65,6 +71,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
 
 </manifest>

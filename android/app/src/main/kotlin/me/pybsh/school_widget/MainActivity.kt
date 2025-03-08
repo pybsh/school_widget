@@ -1,4 +1,4 @@
-package com.example.school_widget
+package me.pybsh.school_widget
 
 import io.flutter.embedding.android.FlutterActivity
 
