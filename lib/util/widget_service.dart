@@ -10,9 +10,9 @@ class WidgetService {
   /// Android
   static const androidPackagePrefix = 'me.pybsh.school_widget';
   static const timetableWidgetAndroidName =
-      '$androidPackagePrefix.receivers.TimetableWidgetReceiver';
+      '$androidPackagePrefix.TimetableWidgetReceiver';
   static const mealWidgetAndroidName =
-      '$androidPackagePrefix.receivers.MealWidgetReceiver';
+      '$androidPackagePrefix.MealWidgetReceiver';
 
   /// Called in main.dart
   static Future<void> initialize() async {
