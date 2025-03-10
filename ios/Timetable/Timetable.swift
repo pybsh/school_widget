@@ -60,8 +60,21 @@ struct TimetableEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
+        ZStack {
+            ZStack(alignment: .top) {
+                Button(
+                    intent: BackgroundIntent(
+                        url: URL(string: "schoolWidget://tReload"), appGroup: widgetGroupId)
+                ) {
+                    Image(systemName: "arrow.clockwise.circle")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                }
+                .buttonStyle(.plain)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             Text(entry.timetable.description)
+                .font(.caption)
+                .multilineTextAlignment(.center)
         }
     }
 }

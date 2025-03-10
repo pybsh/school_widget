@@ -1,5 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:school_widget/util/reload_widget.dart';
+
+@pragma("vm:entry-point")
+Future<void> backgroundCallback(Uri? data) async {
+  if(data?.host == 'tReload') {
+    await reloadTimetableWidget();
+  }
+
+  if(data?.host == 'mReload') {
+    await reloadMealWidget();
+  }
+}
 
 class WidgetService {
   /// iOS
@@ -17,6 +31,7 @@ class WidgetService {
   /// Called in main.dart
   static Future<void> initialize() async {
     await HomeWidget.setAppGroupId(iOSWidgetAppGroupId);
+    await HomeWidget.registerInteractivityCallback(backgroundCallback);
   }
 
   /// Save data to Shared Preferences
