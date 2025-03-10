@@ -93,7 +93,8 @@ struct Meal: Widget {
             }
         }
         .configurationDisplayName("Meal")
-        .description("This is an example widget.")
+        .description("This is an meal widget.")
+        .supportedFamilies([.systemSmall])
     }
 }
 

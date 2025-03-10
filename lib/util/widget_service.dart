@@ -6,11 +6,11 @@ import 'package:school_widget/util/reload_widget.dart';
 
 @pragma("vm:entry-point")
 Future<void> backgroundCallback(Uri? data) async {
-  if(data?.host == 'tReload') {
+  if(data?.host == 'treload') {
     await reloadTimetableWidget();
   }
 
-  if(data?.host == 'mReload') {
+  if(data?.host == 'mreload') {
     await reloadMealWidget();
   }
 }
@@ -49,8 +49,8 @@ class WidgetService {
     String? iOSWidgetName,
     String? qualifiedAndroidName,
   }) async {
-    final result = await HomeWidget.updateWidget(
-      name: iOSWidgetName,
+    final result = await HomeWidget.updateWidget( // todo: android ios split 할것
+      name: '${iOSWidgetName}WidgetReceiver',
       iOSName: iOSWidgetName,
       qualifiedAndroidName: qualifiedAndroidName,
     );

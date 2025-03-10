@@ -94,7 +94,8 @@ struct Timetable: Widget {
             }
         }
         .configurationDisplayName("Timetable")
-        .description("This is an example widget.")
+        .description("This is an timetable widget.")
+        .supportedFamilies([.systemSmall])
     }
 }
 
