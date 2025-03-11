@@ -16,16 +16,15 @@ struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> MealEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
-        return MealEntry(date: Date(), meal: meal, schoolInfo: schoolInfo)
+
+        return MealEntry(date: Date(), meal: meal)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MealEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
         
-        let entry = MealEntry(date: Date(), meal: meal, schoolInfo: schoolInfo)
+        let entry = MealEntry(date: Date(), meal: meal)
         completion(entry)
     }
 
@@ -56,8 +55,6 @@ struct Provider: TimelineProvider {
 struct MealEntry: TimelineEntry {
     let date: Date
     let meal: String
-    
-    let schoolInfo: String
 }
 
 struct MealEntryView : View {
@@ -106,6 +103,6 @@ struct Meal: Widget {
 #Preview(as: .systemSmall) {
     Meal()
 } timeline: {
-    MealEntry(date: .now, meal: "😀", schoolInfo: "null")
-    MealEntry(date: .now, meal: "🤩", schoolInfo: "null")
+    MealEntry(date: .now, meal: "😀")
+    MealEntry(date: .now, meal: "🤩")
 }

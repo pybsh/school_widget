@@ -4,10 +4,8 @@ import 'package:school_widget/models/user_school_info.dart';
 import 'package:school_widget/services/fetch_meal.dart';
 import 'package:school_widget/services/fetch_timetable.dart';
 import 'package:school_widget/util/widget_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> reloadWidget() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   var school = UserSchoolInfo(
     SCHUL_NM: "",
