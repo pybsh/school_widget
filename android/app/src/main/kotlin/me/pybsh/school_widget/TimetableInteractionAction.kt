@@ -9,7 +9,7 @@ import es.antonborri.home_widget.HomeWidgetBackgroundIntent
 
 class TimetableInteractionAction : ActionCallback {
     override suspend fun onAction(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
-        val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context, Uri.parse("schoolWidget://tReload"))
+        val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context, Uri.parse("schoolWidget://reload"))
         backgroundIntent.send()
     }
 }

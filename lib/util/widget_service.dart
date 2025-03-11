@@ -1,17 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:school_widget/util/reload_widget.dart';
 
 @pragma("vm:entry-point")
 Future<void> backgroundCallback(Uri? data) async {
-  if(data?.host == 'treload') {
-    await reloadTimetableWidget();
-  }
-
-  if(data?.host == 'mreload') {
-    await reloadMealWidget();
+  if (data?.host == 'reload') {
+    await reloadWidget();
   }
 }
 
@@ -49,13 +44,10 @@ class WidgetService {
     String? iOSWidgetName,
     String? qualifiedAndroidName,
   }) async {
-    final result = await HomeWidget.updateWidget( // todo: android ios split 할것
+    await HomeWidget.updateWidget(
       name: '${iOSWidgetName}WidgetReceiver',
       iOSName: iOSWidgetName,
       qualifiedAndroidName: qualifiedAndroidName,
-    );
-    debugPrint(
-      '[WidgetService.updateWidget] iOSWidgetName: $iOSWidgetName, qualifiedAndroidName: $qualifiedAndroidName, result: $result',
     );
   }
 }

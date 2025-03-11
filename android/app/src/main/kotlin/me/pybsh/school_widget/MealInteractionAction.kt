@@ -9,7 +9,7 @@ import es.antonborri.home_widget.HomeWidgetBackgroundIntent
 
 class MealInteractionAction : ActionCallback {
     override suspend fun onAction(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
-        val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context, Uri.parse("schoolWidget://mReload"))
+        val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context, Uri.parse("schoolWidget://reload"))
         backgroundIntent.send()
     }
 }

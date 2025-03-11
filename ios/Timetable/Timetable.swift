@@ -9,6 +9,9 @@ import WidgetKit
 import SwiftUI
 
 private let prefsKeyTimetable = "timetable"
+private let prefsKeySchoolInfo = "user_school_info"
+private let prefsKeyGrade = "grade"
+private let prefsKeyClass_ = "class"
 private let widgetGroupId = "group.me.pybsh"
 
 struct Provider: TimelineProvider {
@@ -16,14 +19,21 @@ struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> TimetableEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-        return TimetableEntry(date: Date(), timetable: timetable)
+        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
+        let grade = prefs?.string(forKey: prefsKeyGrade) ?? ""
+        let class_ = prefs?.string(forKey: prefsKeyClass_) ?? ""
+        
+        return TimetableEntry(date: Date(), timetable: timetable, schoolInfo: schoolInfo, grade: grade, class_: class_)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (TimetableEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
+        let grade = prefs?.string(forKey: prefsKeyGrade) ?? ""
+        let class_ = prefs?.string(forKey: prefsKeyClass_) ?? ""
         
-        let entry = TimetableEntry(date: Date(), timetable: timetable)
+        let entry = TimetableEntry(date: Date(), timetable: timetable, schoolInfo: schoolInfo, grade: grade, class_: class_)
         completion(entry)
     }
 
@@ -54,6 +64,10 @@ struct Provider: TimelineProvider {
 struct TimetableEntry: TimelineEntry {
     let date: Date
     let timetable: String
+    
+    let schoolInfo: String
+    let grade: String
+    let class_: String
 }
 
 struct TimetableEntryView : View {
@@ -64,7 +78,7 @@ struct TimetableEntryView : View {
             ZStack(alignment: .top) {
                 Button(
                     intent: BackgroundIntent(
-                        url: URL(string: "schoolWidget://tReload"), appGroup: widgetGroupId)
+                        url: URL(string: "schoolWidget://reload"), appGroup: widgetGroupId)
                 ) {
                     Image(systemName: "arrow.clockwise.circle")
                         .resizable()
@@ -102,6 +116,6 @@ struct Timetable: Widget {
 #Preview(as: .systemSmall) {
     Timetable()
 } timeline: {
-    TimetableEntry(date: .now, timetable: "-")
-    TimetableEntry(date: .now, timetable: "-")
+    TimetableEntry(date: .now, timetable: "-", schoolInfo: "null", grade: "null", class_: "null")
+    TimetableEntry(date: .now, timetable: "-", schoolInfo: "null", grade: "null", class_: "null")
 }

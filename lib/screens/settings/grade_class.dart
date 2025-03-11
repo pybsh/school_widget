@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:school_widget/util/widget_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GradeClassScreen extends StatefulWidget {
@@ -37,6 +38,8 @@ class _GradeClassScreenState extends State<GradeClassScreen> {
       _gradeText = g;
       _classText = c;
     });
+    WidgetService.saveData('grade', g);
+    WidgetService.saveData('class', c);
     _prefs.setString('grade', g);
     _prefs.setString('class', c);
   }

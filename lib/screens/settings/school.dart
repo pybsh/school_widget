@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:school_widget/models/user_school_info.dart';
 import 'package:school_widget/services/fetch_school.dart';
+import 'package:school_widget/util/widget_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SchoolScreen extends StatefulWidget {
@@ -117,6 +118,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
                                   'user_school_info',
                                   jsonEncode(suggestions[index].toJson()),
                                 );
+                                WidgetService.saveData("user_school_info", jsonEncode(suggestions[index].toJson()));
                               },
                             ),
                       );

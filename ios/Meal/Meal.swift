@@ -9,20 +9,23 @@ import WidgetKit
 import SwiftUI
 
 private let prefsKeyTimetable = "meal"
+private let prefsKeySchoolInfo = "user_school_info"
 private let widgetGroupId = "group.me.pybsh"
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> MealEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-        return MealEntry(date: Date(), meal: meal)
+        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
+        return MealEntry(date: Date(), meal: meal, schoolInfo: schoolInfo)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MealEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let schoolInfo = prefs?.string(forKey: prefsKeySchoolInfo) ?? ""
         
-        let entry = MealEntry(date: Date(), meal: meal)
+        let entry = MealEntry(date: Date(), meal: meal, schoolInfo: schoolInfo)
         completion(entry)
     }
 
@@ -53,6 +56,8 @@ struct Provider: TimelineProvider {
 struct MealEntry: TimelineEntry {
     let date: Date
     let meal: String
+    
+    let schoolInfo: String
 }
 
 struct MealEntryView : View {
@@ -63,7 +68,7 @@ struct MealEntryView : View {
             ZStack(alignment: .top) {
                 Button(
                     intent: BackgroundIntent(
-                        url: URL(string: "schoolWidget://tReload"), appGroup: widgetGroupId)
+                        url: URL(string: "schoolWidget://reload"), appGroup: widgetGroupId)
                 ) {
                     Image(systemName: "arrow.clockwise.circle")
                         .resizable()
@@ -101,6 +106,6 @@ struct Meal: Widget {
 #Preview(as: .systemSmall) {
     Meal()
 } timeline: {
-    MealEntry(date: .now, meal: "😀")
-    MealEntry(date: .now, meal: "🤩")
+    MealEntry(date: .now, meal: "😀", schoolInfo: "null")
+    MealEntry(date: .now, meal: "🤩", schoolInfo: "null")
 }
