@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation("androidx.glance:glance:1.1.1")
     implementation("androidx.glance:glance-appwidget:1.1.1")
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.7.8")
 }
 
 android {

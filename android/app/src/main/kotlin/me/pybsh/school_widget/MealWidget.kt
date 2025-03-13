@@ -23,9 +23,16 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.layout.Row
+import androidx.glance.layout.wrapContentHeight
 import androidx.glance.state.GlanceStateDefinition
+import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
+import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MealWidget : GlanceAppWidget() {
     override val stateDefinition: GlanceStateDefinition<*>?
@@ -41,26 +48,36 @@ class MealWidget : GlanceAppWidget() {
     private fun GlanceContent(context: Context, currentState: HomeWidgetGlanceState) {
         val prefs = currentState.preferences
         val meal = prefs.getString("meal", "-")
+        val dateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
+        val currentDate = dateFormat.format(Date())
 
-        Box(modifier = GlanceModifier.background(Color.White).padding(8.dp)) {
-            Column(modifier = GlanceModifier.fillMaxSize()) {
-                Row(modifier = GlanceModifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
-                    CircleIconButton(
-                        imageProvider = ImageProvider(R.drawable.refresh_24px),
-                        contentDescription = "Refresh Meal",
-                        onClick = actionRunCallback<MealInteractionAction>(),
-                        modifier = GlanceModifier.padding(4.dp)
-                    )
-                }
-
-                Box(modifier = GlanceModifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(
-                        meal.toString(),
-                        style = TextStyle(fontSize = 13.sp),
-                        modifier = GlanceModifier.padding(16.dp)
-                    )
-                }
+        Column(modifier = GlanceModifier.fillMaxSize().background(Color.White), horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(
+                modifier = GlanceModifier.fillMaxWidth(),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                CircleIconButton(
+                    imageProvider = ImageProvider(R.drawable.refresh_24px),
+                    contentDescription = "Refresh Meal",
+                    onClick = actionRunCallback<MealInteractionAction>(),
+                    backgroundColor = null,
+                    modifier = GlanceModifier.padding(4.dp)
+                )
             }
+
+            Text(
+                text = "[$currentDate] 급식🍔",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    color = ColorProvider(Color(0xFFFFA500)),
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                ),
+            )
+            Text(
+                meal.toString(),
+                style = TextStyle(fontSize = 13.sp, textAlign = TextAlign.Center),
+            )
         }
     }
 }
