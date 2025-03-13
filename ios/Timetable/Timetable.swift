@@ -73,14 +73,29 @@ struct TimetableEntryView : View {
                     Image(systemName: "arrow.clockwise.circle")
                         .resizable()
                         .frame(width: 20, height: 20)
+                        .foregroundStyle(.gray)
                 }
                 .buttonStyle(.plain)
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-            Text(entry.timetable.description)
-                .font(.caption)
-                .multilineTextAlignment(.center)
+                .padding(-8.0)
+            VStack {
+                Text(formatDate(entry.date))
+                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .foregroundColor(.yellow)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                Text(entry.timetable.description)
+                    .font(.system(size: 12, design: .rounded))
+                    .multilineTextAlignment(.center)
+            }
         }
     }
+    
+    func formatDate(_ date: Date) -> String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "[MM/dd] 시간표🗓️"
+            return formatter.string(from: date)
+        }
 }
 
 struct Timetable: Widget {

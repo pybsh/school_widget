@@ -41,6 +41,7 @@ Future<void> reloadWidget() async {
 
   // print('reload school: ${school.SCHUL_NM}');
 
+  // print(timetable);
   await WidgetService.saveData("timetable", timetable);
   await WidgetService.saveData("meal", meal);
   await WidgetService.updateWidget(

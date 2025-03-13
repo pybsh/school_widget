@@ -11,9 +11,10 @@ Future<String> fetchTimetable(
   String type,
 ) async {
   final uri = Uri.https("open.neis.go.kr", "/hub/${type}Timetable", {
+    'key': '67540679170c4a13a7f7608f4ffea8a7',
     'ATPT_OFCDC_SC_CODE': atptCode,
     'SD_SCHUL_CODE': schoolCode,
-    'ALL_TI_YMD': getToday(), // '20240306',  
+    'ALL_TI_YMD': getToday(), // '20240306',
     'GRADE': grade,
     'CLASS_NM': classNm,
     'type': 'json',
