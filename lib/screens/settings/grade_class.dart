@@ -49,6 +49,8 @@ class _GradeClassScreenState extends State<GradeClassScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             setGradeClass(_gradeController.text, _classController.text);

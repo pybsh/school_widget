@@ -30,17 +30,35 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         body: _pages[_selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
-          ],
+        bottomNavigationBar: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            onTap: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            enableFeedback: false,
+            selectedItemColor: Colors.black,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                activeIcon: Icon(Icons.home_filled),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings_outlined),
+                activeIcon: Icon(Icons.settings),
+                label: 'Setting',
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -20,6 +20,9 @@ Future<String> fetchTimetable(
     'type': 'json',
   });
   var timetable = '-';
+  if (grade == '' || classNm == '') {
+    return timetable;
+  }
 
   try {
     final response = await http.get(uri);

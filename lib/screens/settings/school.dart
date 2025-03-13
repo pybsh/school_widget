@@ -56,6 +56,8 @@ class _SchoolScreenState extends State<SchoolScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             setSchoolSearchQuery(_searchController.text);
@@ -85,10 +87,15 @@ class _SchoolScreenState extends State<SchoolScreen> {
                 );
               },
               viewOnSubmitted: (value) {
-                // setSchoolSearchQuery(value);
-                _searchController.closeView('');
+                _searchController.closeView(value);
+                setSchoolSearchQuery(value);
                 _searchController.openView();
               },
+              // viewOnSubmitted: (value) {
+              //   // setSchoolSearchQuery(value);
+              //   _searchController.closeView('');
+              //   _searchController.openView();
+              // },
               suggestionsBuilder: (context, controller) {
                 return [
                   FutureBuilder<List>(
@@ -118,7 +125,10 @@ class _SchoolScreenState extends State<SchoolScreen> {
                                   'user_school_info',
                                   jsonEncode(suggestions[index].toJson()),
                                 );
-                                WidgetService.saveData("user_school_info", jsonEncode(suggestions[index].toJson()));
+                                WidgetService.saveData(
+                                  "user_school_info",
+                                  jsonEncode(suggestions[index].toJson()),
+                                );
                               },
                             ),
                       );
