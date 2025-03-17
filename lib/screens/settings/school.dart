@@ -74,12 +74,36 @@ class _SchoolScreenState extends State<SchoolScreen> {
             SearchAnchor(
               isFullScreen: false,
               searchController: _searchController,
+              viewElevation: 0.0,
+              viewBackgroundColor: Colors.transparent,
+              viewLeading: SizedBox(),
+              // viewLeading: IconButton(
+              //   splashColor: Colors.transparent,
+              //   highlightColor: Colors.transparent,
+              //   onPressed: () {
+              //     _searchController.closeView(_searchController.text);
+              //   },
+              //   icon: Icon(Icons.arrow_back_ios_new),
+              // ),
+              viewTrailing: [
+                IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    _searchController.closeView('');
+                    setSchoolSearchQuery('');
+                  },
+                  icon: Icon(Icons.close),
+                ),
+              ],
               builder: (context, controller) {
-                return SearchBar(
+                return TextField(
+                  // elevation: WidgetStateProperty.all(0.0),
                   // trailing: [Icon(Icons.search)],
                   controller: controller,
                   onTap: null,
                   onChanged: null,
+                  decoration: InputDecoration(labelText: "학교이름"),
                   onSubmitted: (value) {
                     setSchoolSearchQuery(value);
                     controller.openView();
@@ -91,18 +115,13 @@ class _SchoolScreenState extends State<SchoolScreen> {
                 setSchoolSearchQuery(value);
                 _searchController.openView();
               },
-              // viewOnSubmitted: (value) {
-              //   // setSchoolSearchQuery(value);
-              //   _searchController.closeView('');
-              //   _searchController.openView();
-              // },
               suggestionsBuilder: (context, controller) {
                 return [
                   FutureBuilder<List>(
                     future: fetchSchool(_schoolSearchQuery),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(child: SizedBox());
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       }
@@ -112,6 +131,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
                         itemCount: suggestions.length,
                         itemBuilder:
                             (context, index) => ListTile(
+                              splashColor: Colors.transparent,
                               title: Text(suggestions[index].SCHUL_NM),
                               subtitle: Text(suggestions[index].ORG_RDNMA),
                               onTap: () {
