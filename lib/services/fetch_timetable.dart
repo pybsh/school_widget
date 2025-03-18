@@ -31,9 +31,12 @@ Future<String> fetchTimetable(
         json['${type}Timetable'][1]['row'] != null) {
       json = json['${type}Timetable'][1]['row'];
       timetable = '';
-      json.forEach((element) {
-        timetable += "${element['PERIO']}. ${element['ITRT_CNTNT']}\n";
-      });
+      for (int i = 0; i < json.length; i++) {
+        timetable += "${json[i]['PERIO']}. ${json[i]['ITRT_CNTNT']}";
+        if (i != json.length - 1) {
+          timetable += "\n";
+        }
+      }
     }
   } catch (e) {
     print('Error fetching timetable: $e');
