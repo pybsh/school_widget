@@ -77,10 +77,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("데이터는 나이스 교육정보 개방 포털에서 가져와요!"),
-                      Text("나이스에 정보가 없거나, 학교 정보가 잘못 입력되었을 수 있어요."),
-                      Text("학기 초에는 학교 사정에 따라 시간표 데이터가 없을 수 있어요."),
+                      Text("스쿨 위젯은 데이터를 나이스 교육정보 개방 포털에서 가져와요!"),
+                      Text("- 학교, 학년, 반 정보가 잘못 입력되었을 수 있어요."),
+                      Text("- 학기 초에는 학교 사정에 따라 데이터가 없을 수 있어요."),
+                      Text("- 인터넷 연결이 올바른지 확인해주세요.")
                     ],
                   ),
                 ),

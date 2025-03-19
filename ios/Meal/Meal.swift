@@ -108,8 +108,8 @@ struct Meal: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Meal")
-        .description("This is an meal widget.")
+        .configurationDisplayName("Meal 급식")
+        .description("Meal Widget. 급식 위젯입니다.")
         .supportedFamilies([.systemSmall])
     }
 }

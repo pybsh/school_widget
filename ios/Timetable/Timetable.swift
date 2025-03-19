@@ -112,8 +112,8 @@ struct Timetable: Widget {
                     .background()
             }
         }
-        .configurationDisplayName("Timetable")
-        .description("This is an timetable widget.")
+        .configurationDisplayName("Timetable 시간표")
+        .description("Timetable Widget. 시간표 위젯입니다.")
         .supportedFamilies([.systemSmall])
     }
 }
