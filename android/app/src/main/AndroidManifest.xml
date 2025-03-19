@@ -20,7 +20,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="school_widget">
+        android:label="@string/app_name">
         <receiver android:name=".TimetableWidgetReceiver"
             android:exported="true">
             <intent-filter>
