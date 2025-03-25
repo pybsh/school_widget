@@ -33,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    initPrefs();
+    setState(() {
+      initPrefs();
+    });
   }
 
   void initPrefs() async {
@@ -61,7 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _meal = await fetchMeal(_school.ATPT_OFCDC_SC_CODE, _school.SD_SCHUL_CODE);
 
-    setState(() {});
+    setState(() {
+      _timetable = _timetable;
+      _meal = _meal;
+      _classText = _classText;
+      _gradeText = _gradeText;
+    });
   }
 
   @override

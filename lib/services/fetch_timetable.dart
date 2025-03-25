@@ -27,6 +27,7 @@ Future<String> fetchTimetable(
   try {
     final response = await http.get(uri);
     var json = jsonDecode(response.body);
+    
     if (json['${type}Timetable'] != null &&
         json['${type}Timetable'][1]['row'] != null) {
       json = json['${type}Timetable'][1]['row'];

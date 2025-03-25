@@ -15,6 +15,7 @@ Future<String> fetchMeal(String atptCode, String schoolCode) async {
   try {
     final response = await http.get(uri);
     var json = jsonDecode(response.body);
+    
     if (json['mealServiceDietInfo'] != null &&
         json['mealServiceDietInfo'][1]['row'] != null) {
       json = json['mealServiceDietInfo'][1]['row'];

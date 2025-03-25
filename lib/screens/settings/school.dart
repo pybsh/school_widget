@@ -123,9 +123,14 @@ class _SchoolScreenState extends State<SchoolScreen> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: SizedBox());
                       } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
+                        return Center(
+                          child: Text('오류가 발생했습니다. 인터넷 환경을 확인해주세요.'),
+                        );
                       }
-                      final suggestions = snapshot.data ?? [];
+                      final suggestions = snapshot.data;
+                      if (suggestions == null || suggestions.isEmpty) {
+                        return Center(child: Text('검색 결과가 없습니다.'));
+                      }
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: suggestions.length,

@@ -9,11 +9,13 @@ Future<List> fetchSchool(String query) async {
     'SCHUL_NM': query,
     'type': 'json',
   });
-  final response = await http.get(uri);
-  var json = jsonDecode(response.body);
+  
   var schoolList = [];
 
   try {
+    final response = await http.get(uri);
+    var json = jsonDecode(response.body);
+    
     if (json['schoolInfo'] != null && json['schoolInfo'][1]['row'] != null) {
       json = json['schoolInfo'][1]['row'];
       json.forEach((element) {

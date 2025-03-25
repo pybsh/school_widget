@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_widget/screens/settings/colour.dart';
 import 'package:school_widget/screens/settings/grade_class.dart';
 import 'package:school_widget/screens/settings/school.dart';
 
@@ -57,6 +58,25 @@ class _SettingScreenState extends State<SettingScreen> {
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const GradeClassScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
+          Theme(
+            data: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
+            child: ListTile(
+              enableFeedback: false,
+              title: Text("색상 설정"),
+              trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const ColourScreen(),
                   ),
                 );
               },
