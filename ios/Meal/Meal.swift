@@ -10,21 +10,30 @@ import SwiftUI
 
 private let prefsKeyTimetable = "meal"
 private let prefsKeySchoolInfo = "user_school_info"
+private let prefsKeyBgColor = "bgColor"
+private let prefsKeyDtColor = "dtColor"
+private let prefsKeyMtColor = "mtColor"
 private let widgetGroupId = "group.me.pybsh"
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> MealEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
-
-        return MealEntry(date: Date(), meal: meal)
+        let bgColor = Color(hex: prefs?.string(forKey: prefsKeyBgColor) ?? "FF1F1E33")
+        let dtColor = Color(hex: prefs?.string(forKey: prefsKeyDtColor) ?? "FFFFD700")
+        let mtColor = Color(hex: prefs?.string(forKey: prefsKeyMtColor) ?? "FFFFFFFF")
+        
+        return MealEntry(date: Date(), meal: meal, bgColor: bgColor, dtColor: dtColor, mtColor: mtColor)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MealEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let meal = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let bgColor = Color(hex: prefs?.string(forKey: prefsKeyBgColor) ?? "FF1F1E33")
+        let dtColor = Color(hex: prefs?.string(forKey: prefsKeyDtColor) ?? "FFFFD700")
+        let mtColor = Color(hex: prefs?.string(forKey: prefsKeyMtColor) ?? "FFFFFFFF")
         
-        let entry = MealEntry(date: Date(), meal: meal)
+        let entry = MealEntry(date: Date(), meal: meal, bgColor: bgColor, dtColor: dtColor, mtColor: mtColor)
         completion(entry)
     }
 
@@ -55,6 +64,9 @@ struct Provider: TimelineProvider {
 struct MealEntry: TimelineEntry {
     let date: Date
     let meal: String
+    let bgColor: Color
+    let dtColor: Color
+    let mtColor: Color
 }
 
 struct MealEntryView : View {
@@ -78,11 +90,12 @@ struct MealEntryView : View {
             VStack {
                 Text(formatDate(entry.date))
                     .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .foregroundColor(.yellow)
+                    .foregroundColor(entry.dtColor)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                 Text(entry.meal.description)
                     .font(.system(size: 12, design: .rounded))
+                    .foregroundColor(entry.mtColor)
                     .multilineTextAlignment(.center)
             }
         }
@@ -101,7 +114,7 @@ struct Meal: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
                 MealEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
+                    .containerBackground(entry.bgColor, for: .widget)
             } else {
                 MealEntryView(entry: entry)
                     .padding()
@@ -117,6 +130,5 @@ struct Meal: Widget {
 #Preview(as: .systemSmall) {
     Meal()
 } timeline: {
-    MealEntry(date: .now, meal: "😀")
-    MealEntry(date: .now, meal: "🤩")
+    MealEntry(date: .now, meal: "-",bgColor: Color(hex: "FF1F1E33"), dtColor: Color.yellow, mtColor: Color.white)
 }

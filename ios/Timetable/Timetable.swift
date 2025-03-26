@@ -10,6 +10,9 @@ import SwiftUI
 
 private let prefsKeyTimetable = "timetable"
 private let prefsKeySchoolInfo = "user_school_info"
+private let prefsKeyBgColor = "bgColor"
+private let prefsKeyDtColor = "dtColor"
+private let prefsKeyMtColor = "mtColor"
 private let prefsKeyGrade = "grade"
 private let prefsKeyClass_ = "class"
 private let widgetGroupId = "group.me.pybsh"
@@ -19,15 +22,21 @@ struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> TimetableEntry {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let bgColor = Color(hex: prefs?.string(forKey: prefsKeyBgColor) ?? "FF1F1E33")
+        let dtColor = Color(hex: prefs?.string(forKey: prefsKeyDtColor) ?? "FFFFD700")
+        let mtColor = Color(hex: prefs?.string(forKey: prefsKeyMtColor) ?? "FFFFFFFF")
         
-        return TimetableEntry(date: Date(), timetable: timetable)
+        return TimetableEntry(date: Date(), timetable: timetable, bgColor: bgColor, dtColor: dtColor, mtColor: mtColor)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (TimetableEntry) -> ()) {
         let prefs = UserDefaults(suiteName: widgetGroupId)
         let timetable = prefs?.string(forKey: prefsKeyTimetable) ?? "-"
+        let bgColor = Color(hex: prefs?.string(forKey: prefsKeyBgColor) ?? "FF1F1E33")
+        let dtColor = Color(hex: prefs?.string(forKey: prefsKeyDtColor) ?? "FFFFD700")
+        let mtColor = Color(hex: prefs?.string(forKey: prefsKeyMtColor) ?? "FFFFFFFF")
         
-        let entry = TimetableEntry(date: Date(), timetable: timetable)
+        let entry = TimetableEntry(date: Date(), timetable: timetable, bgColor: bgColor, dtColor: dtColor, mtColor: mtColor)
         completion(entry)
     }
 
@@ -58,6 +67,9 @@ struct Provider: TimelineProvider {
 struct TimetableEntry: TimelineEntry {
     let date: Date
     let timetable: String
+    let bgColor: Color
+    let dtColor: Color
+    let mtColor: Color
 }
 
 struct TimetableEntryView : View {
@@ -65,6 +77,7 @@ struct TimetableEntryView : View {
 
     var body: some View {
         ZStack {
+            entry.bgColor
             ZStack(alignment: .top) {
                 Button(
                     intent: BackgroundIntent(
@@ -81,10 +94,11 @@ struct TimetableEntryView : View {
             VStack {
                 Text(formatDate(entry.date))
                     .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .foregroundColor(.yellow)
+                    .foregroundColor(entry.dtColor)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                 Text(entry.timetable.description)
+                    .foregroundColor(entry.mtColor)
                     .font(.system(size: 12, design: .rounded))
                     .multilineTextAlignment(.center)
             }
@@ -105,7 +119,7 @@ struct Timetable: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
                 TimetableEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
+                    .containerBackground(entry.bgColor, for: .widget)
             } else {
                 TimetableEntryView(entry: entry)
                     .padding()
@@ -121,6 +135,5 @@ struct Timetable: Widget {
 #Preview(as: .systemSmall) {
     Timetable()
 } timeline: {
-    TimetableEntry(date: .now, timetable: "-")
-    TimetableEntry(date: .now, timetable: "-")
+    TimetableEntry(date: .now, timetable: "-", bgColor: Color(hex: "FF1F1E33"), dtColor: Color.yellow, mtColor: Color.white)
 }
