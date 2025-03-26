@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:school_widget/util/reload_widget.dart';
 import 'package:school_widget/util/widget_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -160,6 +161,7 @@ class _ColourScreenState extends State<ColourScreen> {
                                       "bgColor",
                                       bgCurrentColor.toHexString(),
                                     );
+                                    reloadWidget();
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -214,6 +216,7 @@ class _ColourScreenState extends State<ColourScreen> {
                                       "dtColor",
                                       dtCurrentColor.toHexString(),
                                     );
+                                    reloadWidget();
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -268,6 +271,7 @@ class _ColourScreenState extends State<ColourScreen> {
                                       "mtColor",
                                       mtCurrentColor.toHexString(),
                                     );
+                                    reloadWidget();
                                     Navigator.of(context).pop();
                                   },
                                 ),

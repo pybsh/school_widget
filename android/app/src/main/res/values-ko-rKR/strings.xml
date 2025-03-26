@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">스쿨 위젯</string>
+    <string name="timetable_desc">시간표 위젯</string>
+    <string name="meal_desc">급식 위젯</string>
 </resources>

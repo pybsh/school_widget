@@ -48,10 +48,13 @@ class MealWidget : GlanceAppWidget() {
     private fun GlanceContent(context: Context, currentState: HomeWidgetGlanceState) {
         val prefs = currentState.preferences
         val meal = prefs.getString("meal", "-")
+        val bgColor = Color(prefs.getString("bgColor","FF1F1E33")!!.toLong(16))
+        val dtColor = Color(prefs.getString("dtColor","FFFFC107")!!.toLong(16))
+        val mtColor = Color(prefs.getString("mtColor", "FFFFFFFF")!!.toLong(16))
         val dateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
         val currentDate = dateFormat.format(Date())
 
-        Column(modifier = GlanceModifier.fillMaxSize().background(Color.White), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = GlanceModifier.fillMaxSize().background(bgColor), horizontalAlignment = Alignment.CenterHorizontally) {
             Box(
                 modifier = GlanceModifier.fillMaxWidth(),
                 contentAlignment = Alignment.TopEnd
@@ -69,14 +72,18 @@ class MealWidget : GlanceAppWidget() {
                 text = "[$currentDate] 급식🍔",
                 style = TextStyle(
                     fontSize = 14.sp,
-                    color = ColorProvider(Color(0xFFFFA500)),
+                    color = ColorProvider(dtColor),
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 ),
             )
             Text(
                 meal.toString(),
-                style = TextStyle(fontSize = 13.sp, textAlign = TextAlign.Center),
+                style = TextStyle(
+                    fontSize = 13.sp,
+                    textAlign = TextAlign.Center,
+                    color = ColorProvider(mtColor)
+                    ),
             )
         }
     }

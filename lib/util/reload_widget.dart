@@ -16,8 +16,8 @@ Future<void> reloadWidget() async {
     SCHUL_KND_SC_NM: "",
   );
 
-  var gradeText = await WidgetService.getData('grade');
-  var classText = await WidgetService.getData('class');
+  var gradeText = await WidgetService.getData('grade') ?? "-";
+  var classText = await WidgetService.getData('class') ?? "-";
 
   String? savedData = await WidgetService.getData('user_school_info');
 
