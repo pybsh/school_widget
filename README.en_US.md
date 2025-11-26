@@ -1,6 +1,6 @@
 # School Widget
 
-<p align="center"><a href="https://github.com/pybsh/school_widget/blob/main/README.md">한국어</a> · <a href="https://github.com/pybsh/school_widget/blob/main/README_en_US.md">English</a></p>
+<p align="center"><a href="https://github.com/pybsh/school_widget/blob/main/README.md">한국어</a> · <a href="https://github.com/pybsh/school_widget/blob/main/README.en_US.md">English</a></p>
 
 > <b>Elementary, Middle, and High School Timetables and Meals as Home Screen Widgets</b>
 
