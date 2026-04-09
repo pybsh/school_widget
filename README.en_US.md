@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project has been archived. Please visit [pybsh/school_widget_v2](https://github.com/pybsh/school_widget_v2) for the updated version.
+
 # School Widget
 
 <p align="center"><a href="https://github.com/pybsh/school_widget/blob/main/README.md">한국어</a> · <a href="https://github.com/pybsh/school_widget/blob/main/README.en_US.md">English</a></p>
