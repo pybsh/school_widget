@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> 이 프로젝트는 아카이브되었습니다. 업데이트된 버전은 [pybsh/school_widget_v2](https://github.com/pybsh/school_widget_v2)에서 확인하세요.
+
 # School Widget
 
 <p align="center"><a href="https://github.com/pybsh/school_widget/blob/main/README.md">한국어</a> · <a href="https://github.com/pybsh/school_widget/blob/main/README.en_US.md">English</a></p>
